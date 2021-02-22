@@ -1,12 +1,17 @@
 require('dotenv').config();
 
 const express = require('express');
-const app = express();
 const bodyParser = require('body-parser');
+const app = express();
+
 const mongoose = require('mongoose');
-const ejs = require('ejs');
+
 const flash = require('connect-flash');
 const session = require('express-session');
+const passport = require('passport');
+require('./config/passport')(passport);
+
+const homeRoute = require('./routes/home');
 const authRoute = require('./routes/auth');
 
 app.set('view engine', 'ejs');
@@ -19,11 +24,15 @@ app.use(session({
     saveUninitialized: true
 }));
 
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(flash());
 
 app.use((req, res, next) => {
     res.locals.success_message = req.flash('success_message');
     res.locals.error_message = req.flash('error_message');
+    res.locals.error = req.flash('error');
     next();
 });
 
@@ -36,6 +45,7 @@ db.once('open', () => {
     console.log('Connected to database.');
 });
 
+app.use('/', homeRoute);
 app.use('/', authRoute)
 
 app.listen(3000, () => {
