@@ -2,6 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
 const app = express();
 
 const mongoose = require('mongoose');
@@ -15,10 +16,12 @@ require('./config/passport')(passport);
 const homeRoute = require('./routes/home');
 const authRoute = require('./routes/auth');
 const adminBookRoute = require('./routes/book');
+const adminAuthorRoute = require('./routes/author');
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
 app.use(bodyParser.urlencoded({extended: false, limit: '10mb'}));
+app.use(methodOverride('_method'));
 
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -50,6 +53,7 @@ db.once('open', () => {
 app.use('/', homeRoute);
 app.use('/', authRoute);
 app.use('/admin/book', adminBookRoute);
+app.use('/admin/author', adminAuthorRoute);
 
 app.listen(3000, () => {
     console.log('Server running on port 3000...');

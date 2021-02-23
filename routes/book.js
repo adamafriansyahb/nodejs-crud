@@ -9,4 +9,8 @@ router.get('/create', (req, res) => {
     res.render('admin/book/create');
 });
 
+router.post('/', (req, res) => {
+    
+});
+
 module.exports = router;
