@@ -1,0 +1,54 @@
+<%- include('../../partials/header') %> 
+<%- include('../../partials/navbar') %>
+
+
+<div class="container mt-5">
+    <h2 class="mb-4">Add new book</h2>
+    <form action="" method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input name="title" type="text" class="form-control" id="title">
+        </div>
+
+        <div class="mb-3">
+            <p>Author</p>
+            <select class="form-select">s
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="pageCount" class="form-label">Number of Page</label>
+            <input name="pageCount" type="number" class="form-control" id="pageCount">
+        </div>
+
+        <div class="mb-3">
+            <label for="publishDate" class="form-label">Date of Publication</label>
+            <input name="publishDate" type="date" class="form-control" id="publishDate">
+        </div>
+
+        <div class="mb-3">
+            <p>Publisher</p>
+            <select class="form-select">
+                <option value="1">One</option>
+                <option value="2">Two</option>
+                <option value="3">Three</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="cover" class="form-label">Book Cover</label>
+            <input name="cover" type="file" class="form-control" id="cover">
+        </div>
+
+        <div class="mb-4">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+
+      </form>
+</div>
+
+
+<%- include('../../partials/footer') %>

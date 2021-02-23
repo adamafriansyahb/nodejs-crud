@@ -11,8 +11,10 @@ const session = require('express-session');
 const passport = require('passport');
 require('./config/passport')(passport);
 
+// Routes
 const homeRoute = require('./routes/home');
 const authRoute = require('./routes/auth');
+const adminBookRoute = require('./routes/book');
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -46,7 +48,8 @@ db.once('open', () => {
 });
 
 app.use('/', homeRoute);
-app.use('/', authRoute)
+app.use('/', authRoute);
+app.use('/admin/book', adminBookRoute);
 
 app.listen(3000, () => {
     console.log('Server running on port 3000...');

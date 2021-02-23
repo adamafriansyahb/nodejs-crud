@@ -6,4 +6,8 @@ router.get('/', checkAuth, (req, res) => {
     res.render('home', {name: req.user.name});
 });
 
+router.get('/admin', checkAuth, (req, res) => {
+    res.render('admin/dashboard');
+});
+
 module.exports = router;
