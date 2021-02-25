@@ -17,6 +17,9 @@ const homeRoute = require('./routes/home');
 const authRoute = require('./routes/auth');
 const adminBookRoute = require('./routes/book');
 const adminAuthorRoute = require('./routes/author');
+const adminPublisherRoute = require('./routes/publisher');
+
+const {checkAuth} = require('./config/auth');
 
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
@@ -52,8 +55,9 @@ db.once('open', () => {
 
 app.use('/', homeRoute);
 app.use('/', authRoute);
-app.use('/admin/book', adminBookRoute);
-app.use('/admin/author', adminAuthorRoute);
+app.use('/admin/book', checkAuth, adminBookRoute);
+app.use('/admin/author', checkAuth, adminAuthorRoute);
+app.use('/admin/publisher', checkAuth, adminPublisherRoute);
 
 app.listen(3000, () => {
     console.log('Server running on port 3000...');

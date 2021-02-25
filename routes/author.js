@@ -57,6 +57,7 @@ router.put('/:id', async (req, res) => {
         author.name = req.body.name;
         author.nationality = req.body.nationality;
         await author.save();
+        req.flash('success_message', 'Data edited successfully.');
         res.redirect(`/admin/author/${author.id}`);
     }
     catch (err) {

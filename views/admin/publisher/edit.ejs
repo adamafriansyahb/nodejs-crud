@@ -1,0 +1,37 @@
+<%- include('../../partials/header') %> 
+<%- include('../../partials/navbar') %>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Edit publisher</h2>
+
+    <%- include('../../partials/messages') %> 
+
+    <form action="/admin/publisher/<%= publisher.id %>?_method=PUT" method="POST">
+        <div class="mb-3 col-md-4">
+          <label for="name" class="form-label">Name</label>
+          <input name="name" type="text" class="form-control" id="name" value="<%= publisher.name %> " required>
+        </div>
+
+        <div class="mb-3 col-md-4">
+          <label for="headquarter" class="form-label">Headquarter</label>
+          <input name="headquarter" type="text" class="form-control" id="headquarter" value="<%= publisher.headquarter %>" required> 
+        </div>
+
+        <div class="mb-3 col-md-4">
+          <label for="ceo" class="form-label">CEO</label>
+          <input name="ceo" type="text" class="form-control" id="ceo" value="<%= publisher.ceo %>" required> 
+        </div>
+
+        <div class="mb-3 col-md-4">
+          <label for="foundedAt" class="form-label">Founded at</label>
+          <input name="foundedAt" type="date" class="form-control" id="foundedAt" value="<%= publisher.foundedAt.toISOString().split('T')[0] %>"> 
+        </div>
+
+        <div class="mb-4">
+            <button type="submit" class="btn btn-primary">Edit</button>
+        </div>
+    </form>
+</div>
+
+
+<%- include('../../partials/footer') %>

@@ -1,0 +1,36 @@
+<%- include('../../partials/header') %> 
+<%- include('../../partials/navbar') %>
+
+<div class="container mt-5">
+  <div class="col-md-4">
+    <%- include('../../partials/messages') %>
+  </div>
+    <div class="card col-md-4">
+        <div class="card-body">
+          <h5 class="card-title"><%= publisher.name %></h5>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Headquarter: <%= publisher.headquarter %> </li>
+          <li class="list-group-item">CEO: <%= publisher.ceo %> </li>
+          <li class="list-group-item">Founded at: <%= publisher.foundedAt.toISOString().split('T')[0] %> </li>
+        </ul>
+        <div class="container card-body d-flex justify-content-start">
+
+          <div class="row">
+            <div class="col">
+              <a href="/admin/publisher/<%= publisher.id %>/edit" class="btn btn-dark">Edit</a>
+            </div>
+
+            <div class="col">
+              <form method="POST" action="/admin/publisher/<%= publisher.id %>?_method=DELETE">
+                <button class="btn btn-danger" type="submit">Remove</button>
+              </form>
+            </div>
+          </div>
+
+        </div>
+      </div>
+</div>
+
+
+<%- include('../../partials/footer') %>
