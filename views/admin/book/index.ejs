@@ -4,40 +4,18 @@
 <div class="container mt-5">
     <a href="/admin/book/create" class="btn btn-primary mb-5">Add New Book</a>
     <div class="row">
-        <div class="col-md-4">
-            <div class="card mb-3" style="max-width: 400px;">
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img src="..." alt="...">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      <a href="" class="btn btn-dark">Edit</a>
-                      <button type="submit" class="btn btn-danger">Delete</button>
-                    </div>
-                  </div>
-                </div>
+        <% books.forEach((book) => { %> 
+          <a href="/admin/book/<%= book.id %> ">
+            <div class="card" style="width: 18rem;">
+              <img src="<%= book.cover.split('lic')[1] %> " class="card-img-top">
+              <div class="card-body">
+                <h5 class="card-title"><%= book.title %> </h5>
+              </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card mb-3" style="max-width: 400px;">
-                <div class="row g-0">
-                  <div class="col-md-4">
-                    <img src="..." alt="...">
-                  </div>
-                  <div class="col-md-8">
-                    <div class="card-body">
-                      <h5 class="card-title">Card title</h5>
-                      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-                      <a href="" class="btn btn-dark">Edit</a>
-                      <button type="submit" class="btn btn-danger">Delete</button>
-                    </div>
-                  </div>
-                </div>
-            </div>
-        </div>
+          </a>
+          
+        <% }) %> 
+        
         
     </div>
 </div>

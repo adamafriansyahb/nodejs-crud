@@ -8,8 +8,9 @@ const Book = require('../models/Book');
 const filePath = 'uploads/bookCovers';
 const upload = uploadConfig(filePath)
 
-router.get('/', (req, res) => {
-    res.render('admin/book/index');
+router.get('/', async (req, res) => {
+    const books = await Book.find();
+    res.render('admin/book/index', {books: books});
 });
 
 router.get('/create', async (req, res) => {
@@ -17,6 +18,17 @@ router.get('/create', async (req, res) => {
         const authors = await Author.find();
         const publishers = await Publisher.find();
         res.render('admin/book/create', {authors: authors, publishers: publishers});
+    }
+    catch (err) {
+        console.log(err.message);
+        res.redirect('/admin/book');
+    }
+});
+
+router.get('/:id', async (req, res) => {
+    try {
+        const book = await Book.findById(req.params.id).populate('author').populate('publisher').exec();
+        res.render('admin/book/detail', {book: book});
     }
     catch (err) {
         console.log(err.message);
