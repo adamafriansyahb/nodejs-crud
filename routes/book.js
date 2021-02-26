@@ -1,16 +1,49 @@
 const express = require('express');
 const router = express.Router();
+const Author = require('../models/Author');
+const Publisher = require('../models/Publisher');
+const uploadConfig = require('../config/upload');
+const Book = require('../models/Book');
+
+const filePath = 'uploads/bookCovers';
+const upload = uploadConfig(filePath)
 
 router.get('/', (req, res) => {
     res.render('admin/book/index');
 });
 
-router.get('/create', (req, res) => {
-    res.render('admin/book/create');
+router.get('/create', async (req, res) => {
+    try {
+        const authors = await Author.find();
+        const publishers = await Publisher.find();
+        res.render('admin/book/create', {authors: authors, publishers: publishers});
+    }
+    catch (err) {
+        console.log(err.message);
+        res.redirect('/admin/book');
+    }
 });
 
-router.post('/', (req, res) => {
-    
+router.post('/', upload.single('cover'), async (req, res) => {
+    const book = new Book({
+        title: req.body.title,
+        author: req.body.author,
+        pageCount: req.body.pageCount,
+        publishedAt: new Date(req.body.publishedAt),
+        publisher: req.body.publisher,
+        summary: req.body.summary,
+        cover: req.file.path
+    });
+
+    try {
+        await book.save();
+        res.redirect('/admin/book');
+    }
+    catch (err) {
+        console.log(err.message);
+        // console.log(mongoose.Types.ObjectId.isValid(req.body.author));
+        res.redirect('/')
+    }
 });
 
 module.exports = router;

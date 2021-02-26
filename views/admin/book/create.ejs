@@ -13,10 +13,10 @@
 
         <div class="mb-3">
             <p>Author</p>
-            <select class="form-select">
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+            <select name="author" class="form-select">
+                <% authors.forEach((author) => {  %> 
+                    <option value="<%= author.id %>"><%= author.name %></option>
+                <% }) %> 
             </select>
         </div>
 
@@ -26,18 +26,23 @@
         </div>
 
         <div class="mb-3">
-            <label for="publishDate" class="form-label">Date of Publication</label>
-            <input name="publishDate" type="date" class="form-control" id="publishDate">
+            <label for="publishedAt" class="form-label">Date of Publication</label>
+            <input name="publishedAt" type="date" class="form-control" id="publishedAt">
         </div>
 
         <div class="mb-3">
             <p>Publisher</p>
-            <select class="form-select">
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
+            <select name="publisher" class="form-select">
+                <% publishers.forEach((publisher) => { %> 
+                    <option value="<%= publisher.id %>"><%= publisher.name %></option>
+                <%  }) %> 
             </select>
         </div>
+
+        <div class="mb-3">
+            <label for="summary" class="form-label">Summary</label>
+            <input name="summary" type="text" class="form-control" id="summary">
+          </div>
 
         <div class="mb-3">
             <label for="cover" class="form-label">Book Cover</label>
