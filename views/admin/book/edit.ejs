@@ -1,0 +1,89 @@
+<%- include('../../partials/header') %> 
+<%- include('../../partials/navbar') %>
+
+
+<div class="container mt-5">
+    <h2 class="mb-4">Edit book</h2>
+
+    <form action="/admin/book/<%= book.id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label for="title" class="form-label">Title</label>
+          <input name="title" type="text" class="form-control" id="title" value="<%= book.title %>">
+          <div>
+              <% if (typeof errorTitleMsg != 'undefined') { %> 
+                <p style="color: red;"><%= errorTitleMsg %> </p>
+              <% } %> 
+          </div>
+        </div>
+
+        <div class="mb-3">
+            <p>Author</p>
+            <select name="author" class="form-select">
+                <% authors.forEach((author) => {  %> 
+                    <% if (author.id == book.author) { %> 
+                        <option selected value="<%= author.id %>"><%= author.name %></option>
+                    <% } else { %>
+                        <option value="<%= author.id %>"><%= author.name %></option>
+                    <% } %>  
+                <% }) %> 
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="pageCount" class="form-label">Number of Page</label>
+            <input name="pageCount" type="number" class="form-control" id="pageCount" value="<%= book.pageCount %>">
+            <div>
+                <% if (typeof errorPageCountMsg != 'undefined') { %> 
+                  <p style="color: red;"><%= errorPageCountMsg %> </p>
+                <% } %> 
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="publishedAt" class="form-label">Date of Publication</label>
+            <input name="publishedAt" type="date" class="form-control" id="publishedAt" value="<%= book.publishedAt.toISOString().split('T')[0] %>">
+            <div>
+                <% if (typeof errorPublishedAtMsg != 'undefined') { %> 
+                  <p style="color: red;"><%= errorPublishedAtMsg %> </p>
+                <% } %> 
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <p>Publisher</p>
+            <select name="publisher" class="form-select">
+                <% publishers.forEach((publisher) => { %> 
+                    <% if (publisher.id == book.publisher) { %> 
+                        <option selected value="<%= publisher.id %>"><%= publisher.name %></option>
+                    <% } else { %> 
+                        <option value="<%= publisher.id %>"><%= publisher.name %></option>
+                    <% } %> 
+                <%  }) %> 
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label for="summary" class="form-label">Summary</label>
+            <input name="summary" type="text" class="form-control" id="summary" value="<%= book.summary %> ">
+            <div>
+                <% if (typeof errorSummaryMsg != 'undefined') { %> 
+                  <p style="color: red;"><%= errorSummaryMsg %> </p>
+                <% } %> 
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="cover" class="form-label">Book Cover</label>
+            <input name="cover" type="file" class="form-control" id="cover" value="<%= book.cover %>">
+        </div>
+
+        <div class="mb-4">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="/admin/book/<%= book.id %>" class="btn btn-danger">Cancel</a>
+        </div>
+
+      </form>
+</div>
+
+
+<%- include('../../partials/footer') %>

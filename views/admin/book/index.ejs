@@ -7,7 +7,7 @@
         <% books.forEach((book) => { %> 
           <a href="/admin/book/<%= book.id %> ">
             <div class="card" style="width: 18rem;">
-              <img src="<%= book.cover.split('lic')[1] %> " class="card-img-top">
+              <img src="<%= book.cover.split('lic')[1] %>" class="card-img-top">
               <div class="card-body">
                 <h5 class="card-title"><%= book.title %> </h5>
               </div>
