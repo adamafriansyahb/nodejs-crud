@@ -2,22 +2,28 @@
 <%- include('../../partials/navbar') %>
 
 <div class="container mt-5">
-    <a href="/admin/book/create" class="btn btn-primary mb-5">Add New Book</a>
-    <div class="row">
-        <% books.forEach((book) => { %> 
+  <div class="row">
+    <div class="col-md-6">
+      <%- include('../../partials/messages') %>
+    </div>
+  </div>
+  
+  <a href="/admin/book/create" class="btn btn-primary mb-5">Add New Book</a>
+  
+  <div class="row d-flex justify-content-center">
+      <% books.forEach((book) => { %> 
+        <div class="col-md-4 mb-4">
           <a href="/admin/book/<%= book.id %> ">
-            <div class="card" style="width: 18rem;">
+            <div class="card">
               <img src="<%= book.cover.split('lic')[1] %>" class="card-img-top">
               <div class="card-body">
                 <h5 class="card-title"><%= book.title %> </h5>
               </div>
             </div>
           </a>
-          
-        <% }) %> 
-        
-        
-    </div>
+        </div>
+      <% }) %> 
+  </div>
 </div>
 
 

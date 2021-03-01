@@ -50,6 +50,7 @@ router.post('/', upload.single('cover'), async (req, res) => {
 
     try {
         await book.save();
+        req.flash('success_message', 'New book added.');
         res.redirect('/admin/book');
     }
     catch (err) {
@@ -151,6 +152,27 @@ router.put('/:id', upload.single('cover'), async (req, res) => {
     catch (err) {
         console.log(err);
         redirect('/admin/book');
+    }
+});
+
+router.delete('/:id', async (req, res) => {
+    let book;
+    try {
+        book = await Book.findById(req.params.id);
+        await book.remove();
+
+        fs.unlink(book.cover, (err) => {
+            if (err) {
+                console.log(err);
+            }
+        });
+        
+        req.flash('error_message', 'Book has been deleted.');
+        res.redirect('/admin/book');
+    }
+    catch (err) {
+        console.log(err);
+        res.redirect(`/admin/book/${book.id}`);
     }
 });
 
