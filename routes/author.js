@@ -80,6 +80,7 @@ router.delete('/:id', async (req, res) => {
             res.redirect('/admin/author');
         }
         else {
+            req.flash('error_message', err.message);
             res.redirect(`/admin/author/${author.id}`);
         }
     }
