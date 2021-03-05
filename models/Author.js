@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 const Book = require('./Book');
 
 const authorSchema = new mongoose.Schema({
@@ -11,6 +12,8 @@ const authorSchema = new mongoose.Schema({
         required: true
     }
 });
+
+authorSchema.plugin(mongoosePaginate);
 
 authorSchema.pre('remove', function(next) {
     Book.find({author: this.id}, (err, books) => {

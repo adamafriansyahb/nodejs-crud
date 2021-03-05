@@ -3,8 +3,14 @@ const Author = require('../models/Author');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-    const authors = await Author.find(); 
-    res.render('admin/author/index', {authors: authors});
+    const page = req.query.page;
+    const options = {
+        limit: 5,
+        page: page,
+        sort: {name: 1}
+    }
+    const authors = await Author.paginate({}, options); 
+    res.render('admin/author/index', {authors: authors.docs, config: authors});
 });
 
 router.get('/create', (req, res) => {

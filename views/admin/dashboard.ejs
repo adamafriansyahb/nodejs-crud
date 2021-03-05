@@ -1,32 +1,49 @@
 <%- include('../partials/header') %> 
 <%- include('../partials/navbar') %> 
 
-<div class="container h-75">
+<div class="container h-100 container-dashboard">
     <div class="row h-100 d-flex align-items-center">
-        <div class="col-md-4 m-auto">
-            <div class="card">
+        <div class="col-md-4 mb-2">
+            <div class="card card-dashboard">
                 <div class="card-body">
-                    <h5 class="card-title">Books</h5>
-                    <p class="card-text">Manage data of the books.</p>
-                    <a href="/admin/book" class="btn btn-primary w-25">Go</a>
+                    <div class="d-flex justify-content-center mb-2">
+                        <i class="d-flex justify-content-center fas fa-book fa-7x"></i>                    </div>
+                    <div class="d-flex justify-content-center mb-3">
+                        <p class="card-text d-flex justify-content-center">Manage data of the books.</p>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <a href="/admin/book?page=1" class="d-flex justify-content-center btn btn-primary">Go</a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4 m-auto">
-            <div class="card">
+        <div class="col-md-4 mb-2">
+            <div class="card card-dashboard">
                 <div class="card-body">
-                  <h5 class="card-title">Authors</h5>
-                  <p class="card-text">Manage the data of the authors.</p>
-                  <a href="/admin/author" class="btn btn-primary w-25">Go</a>
+                    <div class="d-flex justify-content-center mb-2">
+                        <i class="d-flex justify-content-center fas fa-book-reader fa-7x"></i>
+                    </div>
+                    <div class="d-flex justify-content-center mb-3">
+                        <p class="d-flex justify-content-center card-text">Manage the data of the authors.</p>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <a href="/admin/author" class="d-flex justify-content-center btn btn-primary">Go</a>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-4 m-auto">
-            <div class="card">
+        <div class="col-md-4 mb-2">
+            <div class="card card-dashboard">
                 <div class="card-body">
-                  <h5 class="card-title">Publishers</h5>
-                  <p class="card-text">Manage data of the publishers.</p>
-                  <a href="/admin/publisher" class="btn btn-primary w-25">Go</a>
+                    <div class="d-flex justify-content-center mb-2">
+                        <i class="fas fa-home fa-7x"></i>
+                    </div>
+                    <div class="d-flex justify-content-center mb-3">
+                        <p class="card-text">Manage data of the publishers.</p>
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <a href="/admin/publisher?page=1" class="btn btn-primary">Go</a>
+                    </div>
                 </div>
             </div>
         </div>

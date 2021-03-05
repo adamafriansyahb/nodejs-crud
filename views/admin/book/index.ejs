@@ -12,18 +12,48 @@
   
   <div class="row d-flex justify-content-center">
       <% books.forEach((book) => { %> 
-        <div class="col-md-4 mb-4">
-          <a href="/admin/book/<%= book.id %> ">
+        <div class="col-md-3 mb-4">
+          <a class="book-cover" href="/admin/book/<%= book.id %>">
             <div class="card">
               <img src="<%= book.cover.split('lic')[1] %>" class="card-img-top">
-              <div class="card-body">
-                <h5 class="card-title"><%= book.title %> </h5>
-              </div>
+              <!-- <div class="card-body"> -->
+                <!-- <h5 class="card-title"><%= book.title %></h5> -->
+              <!-- </div> -->
             </div>
           </a>
         </div>
       <% }) %> 
   </div>
+
+  <div class="row">
+    <nav class="d-flex justify-content-center">
+      <ul class="pagination">
+        <% if (config.prevPage != null) { %> 
+          <li class="page-item">
+            <a class="page-link" href="/admin/book?page=<%= config.page - 1; %>" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+        <% } %> 
+
+        <% for (let i=1; i<=config.totalPages; i++) { %> 
+          <li class="page-item">
+            <a class="page-link" href="/admin/book?page=<%= i; %>"><%= i; %></a>
+          </li>
+        <% } %> 
+
+        <% if (config.nextPage != null) { %> 
+        <li class="page-item">
+          <a class="page-link" href="/admin/book?page=<%= config.page + 1; %>" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+        <% } %> 
+
+      </ul>
+    </nav>
+  </div>
+
 </div>
 
 

@@ -3,8 +3,14 @@ const Publisher = require('../models/Publisher');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-    const publishers = await Publisher.find();
-    res.render('admin/publisher/index', {publishers: publishers});
+    const page = req.query.page;
+    const options = {
+        limit: 5,
+        page: page,
+        sort: { name: 1 }
+    }
+    const publishers = await Publisher.paginate({}, options);
+    res.render('admin/publisher/index', {publishers: publishers.docs, config: publishers});
 });
 
 router.get('/create', (req, res) => {

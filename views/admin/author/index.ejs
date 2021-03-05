@@ -8,16 +8,79 @@
     </div>
 
     <a href="/admin/author/create" class="btn btn-primary">Add New Author</a>
-    
-    <ul class="list-group mt-4 col-md-6">
-      <% authors.forEach((author) => { %>
-        <li class="list-group-item d-flex justify-content-between align-items-center">
-            <%= author.name %> 
-            <a href="/admin/author/<%= author._id %>" class="btn btn-outline-secondary">Detail</a>
-        </li>
-      <% }) %>
-    </ul>
 </div>
 
+<div class="container">
+  <table class="table table-striped mt-5">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Nationality</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% let i = 1; %>
+        <% authors.forEach((author) => { %>  
+          <tr>
+            <% if (config.page == 1) { %> 
+              <th scope="row"><%= i; %></th>
+            <% } else { %>
+              <th scope="row"><%= i + (config.limit * (config.page-1)); %></th>
+            <% } %>  
+            <td><strong><%= author.name; %></strong></td>
+            <td><%= author.nationality; %></td>
+            <td>
+              <div class="container-fluid d-flex justify-content-start">
+                <div class="row">
+                  <div class="col">
+                    <a href="/admin/author/<%= author.id %>/edit" class="btn btn-dark"><i class="far fa-edit"></i></a>
+                  </div>
+                  <div class="col">
+                    <form method="POST" action="/admin/author/<%= author.id %>?_method=DELETE">
+                      <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        <% i++; %> 
+        <% }); %> 
+      </tbody>
+  </table>
 
+  <div class="container">
+    <div class="row">
+      <nav class="d-flex justify-content-center">
+        <ul class="pagination">
+          <% if (config.prevPage != null) { %> 
+            <li class="page-item">
+              <a class="page-link" href="/admin/author?page=<%= config.page - 1; %>" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+          <% } %> 
+  
+          <% for (let i=1; i<=config.totalPages; i++) { %> 
+            <li class="page-item">
+              <a class="page-link" href="/admin/author?page=<%= i; %>"><%= i; %></a>
+            </li>
+          <% } %> 
+  
+          <% if (config.nextPage != null) { %> 
+          <li class="page-item">
+            <a class="page-link" href="/admin/author?page=<%= config.page + 1; %>" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          <% } %> 
+  
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
+   
 <%- include('../../partials/footer') %>

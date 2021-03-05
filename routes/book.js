@@ -10,8 +10,17 @@ const filePath = 'uploads/bookCovers';
 const upload = uploadConfig(filePath)
 
 router.get('/', async (req, res) => {
-    const books = await Book.find();
-    res.render('admin/book/index', {books: books});
+    const page = req.query.page;
+
+    const options = {
+        limit: 20,
+        page: page
+    }
+    
+    const books = await Book.paginate({}, options);
+
+    console.log(books);
+    res.render('admin/book/index', {books: books.docs, config: books});
 });
 
 router.get('/create', async (req, res) => {

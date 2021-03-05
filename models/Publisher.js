@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const mongoosePaginate = require('mongoose-paginate-v2');
 const Book = require('./Book');
 
 const publisherSchema = new mongoose.Schema({
@@ -18,6 +19,8 @@ const publisherSchema = new mongoose.Schema({
         type: Date
     }
 });
+
+publisherSchema.plugin(mongoosePaginate);
 
 publisherSchema.pre('remove', function(next) {
     Book.find({publisher: this.id}, (err, books) => {

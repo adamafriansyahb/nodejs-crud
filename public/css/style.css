@@ -6,3 +6,11 @@ body {
 .login-he {
   text-decoration: none;
 }
+
+a {
+  text-decoration: none;
+}
+
+.card-dashboard {
+  height: 16rem;
+}
