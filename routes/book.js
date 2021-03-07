@@ -10,17 +10,46 @@ const filePath = 'uploads/bookCovers';
 const upload = uploadConfig(filePath)
 
 router.get('/', async (req, res) => {
-    const page = req.query.page;
+   
+    let query = Book.find();
 
-    const options = {
-        limit: 20,
-        page: page
+    if (req.query.title != null && req.query.title != '') {
+        query = query.regex('title', new RegExp(req.query.title, 'i'));
+    }
+
+    if (req.query.publishedBefore != null && req.query.publishedBefore != '') {
+        query = query.lte('publishedAt', req.query.publishedBefore);
+    }
+
+    if (req.query.publishedAfter != null && req.query.publishedAfter != '') {
+        query = query.gte('publishedAt', req.query.publishedAfter);
     }
     
-    const books = await Book.paginate({}, options);
+    try {
+        const books = await query.exec();
+        res.render('admin/book/index', {
+            books: books,
+            searchOptions: req.query
+        });
+    }
+    catch(err) {
+        console.log(err);
+        res.redirect(`/admin/book`);
+    }
+    
+    // const page = req.query.page;
 
-    console.log(books);
-    res.render('admin/book/index', {books: books.docs, config: books});
+    // const options = {
+    //     limit: 20,
+    //     page: page
+    // }
+    
+    // const books = await Book.paginate({}, options);
+
+    // console.log(books);
+    // res.render('admin/book/index', {books: books.docs, config: books});
+
+
 });
 
 router.get('/create', async (req, res) => {
