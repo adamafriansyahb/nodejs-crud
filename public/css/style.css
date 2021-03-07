@@ -12,5 +12,8 @@ a {
 }
 
 .card-dashboard {
-  height: 16rem;
+  height: 14rem;
+}
+.card-dashboard-content {
+  margin-top: 0.8rem;
 }

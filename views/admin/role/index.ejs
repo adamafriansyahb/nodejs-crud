@@ -1,0 +1,50 @@
+<%- include('../../partials/header') %> 
+<%- include('../../partials/navbar') %>
+
+<div class="container mt-5">
+    <div class="col-md-6">
+      <%- include('../../partials/messages') %>
+    </div>
+
+    <a href="/admin/role/create" class="btn btn-primary">Add New Role</a>
+</div>
+
+<div class="container">
+    <div class="col-md-6">
+        <table class="table table-striped mt-5">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% let i = 1; %>
+              <% roles.forEach((role) => { %>  
+                <tr>
+                  <th scope="row"><%= i; %></th>           
+                  <td><strong><%= role.name; %></strong></td>
+                  <td>
+                    <div class="container-fluid d-flex justify-content-start">
+                      <div class="row">
+                        <div class="col">
+                          <a href="/admin/role/<%= role.id %>/edit" class="btn btn-dark"><i class="far fa-edit"></i></a>
+                        </div>
+                        <div class="col">
+                          <form method="POST" action="/admin/role/<%= role.id %>?_method=DELETE">
+                            <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+              <% i++; %> 
+              <% }); %> 
+            </tbody>
+        </table>
+    </div>
+</div>
+   
+<%- include('../../partials/footer') %>

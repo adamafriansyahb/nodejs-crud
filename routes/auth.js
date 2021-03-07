@@ -1,5 +1,6 @@
 const express = require('express');
 const User = require('../models/User');
+const Role = require('../models/Role');
 const router = express.Router();
 const bcrypt = require('bcrypt');
 const passport = require('passport');
@@ -41,6 +42,7 @@ router.post('/register', async (req, res) => {
     }
     else {
         const user = await User.findOne({email: email});
+        const role = await Role.findOne({name: 'Guest'});
         if (user) {
             errors.push({message: "Email has already been registered."});
             res.render('auth/register', {name, email, password1, password2, errors});
@@ -49,8 +51,11 @@ router.post('/register', async (req, res) => {
             const newUser = new User({
                 name: name,
                 email: email,
-                password: password1
+                password: password1,
+                role: role
             });
+
+            console.log(role.id);
 
             bcrypt.genSalt(10, (err, salt) => {
                 bcrypt.hash(newUser.password, salt, async (err, hash) => {

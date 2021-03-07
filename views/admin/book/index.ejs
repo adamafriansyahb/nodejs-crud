@@ -34,7 +34,7 @@
   
   <div class="row d-flex justify-content-center">
       <% books.forEach((book) => { %> 
-        <div class="col-md-3 mb-4">
+        <div class="col-md-2 mb-4">
           <a class="book-cover" href="/admin/book/<%= book.id %>">
             <div class="card">
               <img src="<%= book.cover.split('lic')[1] %>" class="card-img-top">

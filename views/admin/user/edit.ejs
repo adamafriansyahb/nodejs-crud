@@ -1,0 +1,27 @@
+<%- include('../../partials/header') %> 
+<%- include('../../partials/navbar') %>
+
+<div class="container mt-5">
+    <h2 class="mb-4">Edit user</h2>
+
+    <form action="/admin/user/<%= user.id %>?_method=PUT" method="POST">
+        <div class="mb-3 col-md-4">
+            <p>Role</p>
+            <select name="role" class="form-select">
+                <% roles.forEach((role) => {  %> 
+                    <% if (role.id == user.role) { %> 
+                        <option selected value="<%= role.id %>"><%= role.name %></option>
+                    <% } else { %>
+                        <option value="<%= role.id %>"><%= role.name %></option>
+                    <% } %>  
+                <% }) %> 
+            </select>
+        </div>
+
+        <div class="mb-4">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+    </form>
+</div>
+
+<%- include('../../partials/footer') %>

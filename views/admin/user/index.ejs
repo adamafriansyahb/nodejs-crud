@@ -1,0 +1,86 @@
+<%- include('../../partials/header') %> 
+<%- include('../../partials/navbar') %>
+
+<div class="container mt-5">
+    <h1>List of Users</h1>
+    
+    <div class="col-md-6">
+        <%- include('../../partials/messages') %>
+    </div>
+
+    <table class="table table-striped mt-5">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Email</th>
+                <th scope="col">Role</th>
+                <th scope="col">Created at</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        <% let i = 1; %>
+        <% users.forEach((user) => { %>  
+            <tr>
+                <th scope="row"><%= i; %></th>
+                <td><strong><%= user.name; %></strong></td>
+                <td><%= user.email; %></td>
+                <td><%= user.role.name; %></td>
+                <td><%= user.createdAt; %></td>
+                <td>
+                    <div class="container-fluid d-flex justify-content-start">
+                        <div class="row">
+                            <div class="col">
+                                <a href="/admin/user/<%= user.id %>/edit" class="btn btn-dark"><i class="far fa-edit"></i></a>
+                            </div>
+                            <div class="col">
+                                <form method="POST" action="/admin/user/<%= user.id %>?_method=DELETE">
+                                    <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+            <% i++; %> 
+        <% }); %> 
+        </tbody>
+    </table>
+
+    <div class="container">
+        <div class="row">
+            <nav class="d-flex justify-content-center">
+                <ul class="pagination">
+                    <% if (config.prevPage != null) { %> 
+                    <li class="page-item">
+                        <a class="page-link" href="/admin/user?page=<%= config.page - 1; %>" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <% } %> 
+
+                    <% for (let i=1; i<=config.totalPages; i++) { %> 
+                    <li class="page-item">
+                        <a class="page-link" href="/admin/user?page=<%= i; %>"><%= i; %></a>
+                    </li>
+                    <% } %> 
+
+                    <% if (config.nextPage != null) { %> 
+                    <li class="page-item">
+                    <a class="page-link" href="/admin/user?page=<%= config.page + 1; %>" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                    </li>
+                    <% } %> 
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<%- include('../../partials/footer') %>
