@@ -24,11 +24,7 @@
         <% let i = 1; %>
         <% authors.forEach((author) => { %>  
           <tr>
-            <% if (config.page == 1) { %> 
-              <th scope="row"><%= i; %></th>
-            <% } else { %>
               <th scope="row"><%= i + (config.limit * (config.page-1)); %></th>
-            <% } %>  
             <td><strong><%= author.name; %></strong></td>
             <td><%= author.nationality; %></td>
             <td>

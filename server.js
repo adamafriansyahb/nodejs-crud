@@ -20,6 +20,7 @@ const adminAuthorRoute = require('./routes/author');
 const adminPublisherRoute = require('./routes/publisher');
 const adminUserRoute = require('./routes/user');
 const adminRoleRoute = require('./routes/role');
+const adminMenuRoute = require('./routes/menu');
 
 const {checkAuth} = require('./config/auth');
 
@@ -62,6 +63,7 @@ app.use('/admin/author', checkAuth, adminAuthorRoute);
 app.use('/admin/publisher', checkAuth, adminPublisherRoute);
 app.use('/admin/user', checkAuth, adminUserRoute);
 app.use('/admin/role', checkAuth, adminRoleRoute);
+app.use('/admin/menu', checkAuth, adminMenuRoute);
 
 app.listen(4000, () => {
     console.log('Server running on port 4000...');

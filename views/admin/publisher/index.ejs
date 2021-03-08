@@ -25,11 +25,7 @@
           <% let i = 1; %>
           <% publishers.forEach((publisher) => { %>  
             <tr>
-                <% if (config.page == 1) { %> 
-                    <th scope="row"><%= i; %></th>
-                <% } else { %>
-                    <th scope="row"><%= i + (config.limit * (config.page-1)); %></th>
-                <% } %>  
+                <th scope="row"><%= i + (config.limit * (config.page-1)); %></th>
                 <td><strong><%= publisher.name; %></strong></td>
                 <td><%= publisher.headquarter; %></td>
                 <td><%= publisher.ceo; %></td>

@@ -1,0 +1,55 @@
+<%- include('../../partials/header') %> 
+<%- include('../../partials/navbar') %>
+
+<div class="container mt-5">
+    <h1>List of Menu</h1>
+    <div class="col-md-6 mt-4">
+      <%- include('../../partials/messages') %>
+    </div>
+
+    <a href="/admin/menu/create" class="btn btn-primary">Add New Menu</a>
+</div>
+
+<div class="container">
+  <table class="table table-striped mt-5">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Text</th>
+          <th scope="col">Path</th>
+          <th scope="col">Logo</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% let i = 1; %>
+        <% menus.forEach((menu) => { %>  
+          <tr>
+            <th scope="row"><%= i; %></th>
+            <td><strong><%= menu.name; %></strong></td>
+            <td><%= menu.text; %></td>
+            <td><%= menu.path; %></td>
+            <td><%= menu.logo; %></td>
+            <td>
+              <div class="container-fluid d-flex justify-content-start">
+                <div class="row">
+                  <div class="col">
+                    <a href="/admin/menu/<%= menu.id %>/edit" class="btn btn-dark"><i class="far fa-edit"></i></a>
+                  </div>
+                  <div class="col">
+                    <form method="POST" action="/admin/menu/<%= menu.id %>?_method=DELETE">
+                      <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        <% i++; %> 
+        <% }); %> 
+      </tbody>
+  </table>
+</div>
+   
+<%- include('../../partials/footer') %>

@@ -3,81 +3,24 @@
 
 <div class="container container-dashboard mt-5">
     <div class="row d-flex align-items-center">
-        <div class="col-md-4 mb-3">
-            <div class="card card-dashboard">
-                <div class="card-body card-dashboard-content">
-                    <div class="d-flex justify-content-center mb-2">
-                        <i class="d-flex justify-content-center fas fa-book fa-5x"></i>
-                    </div>
-                    <div class="d-flex justify-content-center mb-3">
-                        <p class="card-text d-flex justify-content-center">Manage data of the books.</p>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <a href="/admin/book" class="d-flex justify-content-center btn btn-primary">Go</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-3">
-            <div class="card card-dashboard">
-                <div class="card-body card-dashboard-content">
-                    <div class="d-flex justify-content-center mb-2">
-                        <i class="d-flex justify-content-center fas fa-book-reader fa-5x"></i>
-                    </div>
-                    <div class="d-flex justify-content-center mb-3">
-                        <p class="d-flex justify-content-center card-text">Manage the data of the authors.</p>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <a href="/admin/author?page=1" class="d-flex justify-content-center btn btn-primary">Go</a>
+        <h1 class="mb-5">Admin Dashboard</h1>
+        <% menus.forEach((menu) => { %> 
+            <div class="col-md-4 mb-3">
+                <div class="card card-dashboard">
+                    <div class="card-body card-dashboard-content">
+                        <div class="d-flex justify-content-center mb-2">
+                            <i class="d-flex justify-content-center <%= menu.logo %>"></i>
+                        </div>
+                        <div class="d-flex justify-content-center mb-3">
+                            <p class="card-text d-flex justify-content-center"><%= menu.text %> </p>
+                        </div>
+                        <div class="d-flex justify-content-center">
+                            <a href="<%= menu.path %>" class="d-flex justify-content-center btn btn-primary">Go</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4 mb-2">
-            <div class="card card-dashboard">
-                <div class="card-body card-dashboard-content">
-                    <div class="d-flex justify-content-center mb-2">
-                        <i class="fas fa-home fa-5x"></i>
-                    </div>
-                    <div class="d-flex justify-content-center mb-3">
-                        <p class="card-text">Manage data of the publishers.</p>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <a href="/admin/publisher?page=1" class="btn btn-primary">Go</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-3">
-            <div class="card card-dashboard">
-                <div class="card-body card-dashboard-content">
-                    <div class="d-flex justify-content-center mb-2">
-                        <i class="fas fa-user fa-5x"></i>
-                    </div>
-                    <div class="d-flex justify-content-center mb-3">
-                        <p class="card-text">Manage data of the users.</p>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <a href="/admin/user?page=1" class="btn btn-primary">Go</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-3">
-            <div class="card card-dashboard">
-                <div class="card-body card-dashboard-content">
-                    <div class="d-flex justify-content-center mb-2">
-                        <i class="fas fa-user fa-5x"></i>
-                    </div>
-                    <div class="d-flex justify-content-center mb-3">
-                        <p class="card-text">Manage data of the roles.</p>
-                    </div>
-                    <div class="d-flex justify-content-center">
-                        <a href="/admin/role" class="btn btn-primary">Go</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <% }) %>
     </div>
 </div>
 
