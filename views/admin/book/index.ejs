@@ -7,14 +7,22 @@
       <%- include('../../partials/messages') %>
     </div>
   </div>
+
+  <h1>List of Books</h1>
   
-  <a href="/admin/book/create" class="btn btn-primary mb-4">Add New Book</a>
+  <a href="/admin/book/create" class="btn btn-primary my-4">Add New Book</a>
   
   <div class="mb-5">
     <form action="/admin/book" method="GET">
-      <div class="mb-3">
-        <label for="title" class="form-label">Title</label>
-        <input name="title" type="text" class="form-control" id="title" placeholder="Enter title">
+      <div class="row">
+        <div class="col">
+          <label for="title" class="form-label">Title</label>
+          <input name="title" type="text" class="form-control" id="title" placeholder="Enter title">
+        </div>
+        <div class="col">
+          <label for="title" class="form-label">Author</label>
+          <input name="title" type="text" class="form-control" id="title" placeholder="Enter title">
+        </div>
       </div>
   
       <div class="row">

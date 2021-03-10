@@ -1,9 +1,82 @@
 <%- include('./partials/header') %> 
 <%- include('./partials/navbar') %> 
 
-    <div class="container">
+    <div class="container mt-5">
         <h1>Welcome, <%= name %>!</h1>
-        <a href="/logout" class="btn btn-secondary">Logout</a>
+        <hr>
+        <h2>Search books</h2>
+        <div class="row">
+            <form action="/admin/book" method="GET">
+                <div class="row mb-3">
+                    <div class="col">
+                      <label for="title" class="form-label">Title</label>
+                      <input name="title" type="text" class="form-control" id="title" placeholder="Enter title">
+                    </div>
+                    <div class="col">
+                      <label for="title" class="form-label">Author</label>
+                      <input name="title" type="text" class="form-control" id="title" placeholder="Enter title">
+                    </div>
+                  </div>
+            
+                <div class="row">
+                    <div class="col">
+                        <label for="publishedBefore" >Published before</label>
+                        <input name="publishedBefore" type="date" class="form-control">
+                    </div>
+                    <div class="col">
+                        <label for="publishedAfter">Published after</label>
+                        <input name="publishedAfter" type="date" class="form-control">
+                    </div>
+                </div>
+            
+                <button type="submit" class="mt-3 btn btn-primary">Search</button>
+            </form>
+        </div>
+        <hr>
+        <h2>List of books</h2>
+        <div class="row d-flex justify-content-center mt-4">
+            <% books.forEach((book) => { %> 
+              <div class="mb-4 col-lg-2 col-md-3 col-4">
+                <a class="book-cover" href="/admin/book/<%= book.id %>">
+                  <div class="card">
+                    <img src="<%= book.cover.split('lic')[1] %>" class="card-img-top rounded">
+                    <!-- <div class="card-body"> -->
+                      <!-- <h5 class="card-title"><%= //book.title %></h5> -->
+                    <!-- </div> -->
+                  </div>
+                </a>
+              </div>
+            <% }) %> 
+        </div>
+
+        <div class="row">
+            <nav class="d-flex justify-content-center">
+              <ul class="pagination">
+                <% if (config.prevPage != null) { %> 
+                  <li class="page-item">
+                    <a class="page-link" href="/?page=<%= config.page - 1; %>" aria-label="Previous">
+                      <span aria-hidden="true">&laquo;</span>
+                    </a>
+                  </li>
+                <% } %> 
+        
+                <% for (let i=1; i<=config.totalPages; i++) { %> 
+                  <li class="page-item">
+                    <a class="page-link" href="/?page=<%= i; %>"><%= i; %></a>
+                  </li>
+                <% } %> 
+        
+                <% if (config.nextPage != null) { %> 
+                <li class="page-item">
+                  <a class="page-link" href="/?page=<%= config.page + 1; %>" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                  </a>
+                </li>
+                <% } %> 
+        
+              </ul>
+            </nav>
+          </div>
     </div>
     
 <%- include('./partials/footer') %> 
