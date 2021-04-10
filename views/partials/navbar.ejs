@@ -9,9 +9,11 @@
             <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/?page=1">Home</a>
             </li>
-            <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="/admin">Admin</a>
-            </li>
+            <% if (user.role.name == "Admin") { %>
+                <li class="nav-item">
+                    <a class="nav-link" aria-current="page" href="/admin">Admin</a>
+                </li>
+            <% } %> 
         </ul>
         <span class="navbar-text">
             <a href="/logout">Logout</a>

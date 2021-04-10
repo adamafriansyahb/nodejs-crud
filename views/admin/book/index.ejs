@@ -7,14 +7,17 @@
       <%- include('../../partials/messages') %>
     </div>
   </div>
+  
+  <h1 class="mb-3">List of Books</h1>
 
-  <h1>List of Books</h1>
+  <% if (user.role.name == 'Admin') { %>
+    <a href="/admin/book/create" class="btn btn-primary mb-4 mt-3">Add New Book</a>
+  <% } %> 
+
   
-  <a href="/admin/book/create" class="btn btn-primary my-4">Add New Book</a>
-  
-  <div class="mb-5">
+  <div class="row mb-3">
     <form action="/admin/book" method="GET">
-      <div class="row">
+      <div class="row mb-3">
         <div class="col">
           <label for="title" class="form-label">Title</label>
           <input name="title" type="text" class="form-control" id="title" placeholder="Enter title">
@@ -39,23 +42,57 @@
       <button type="submit" class="mt-3 btn btn-primary">Search</button>
     </form>
   </div>
-  
-  <div class="row d-flex justify-content-center">
-      <% books.forEach((book) => { %> 
-        <div class="col-md-2 mb-4">
-          <a class="book-cover" href="/admin/book/<%= book.id %>">
-            <div class="card">
-              <img src="<%= book.cover.split('lic')[1] %>" class="card-img-top">
-              <!-- <div class="card-body"> -->
-                <!-- <h5 class="card-title"><%= book.title %></h5> -->
-              <!-- </div> -->
-            </div>
-          </a>
-        </div>
-      <% }) %> 
-  </div>
 
-  
+  <div class="row">
+    <table class="table table-striped mt-4">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Cover</th>
+          <th scope="col">Title</th>
+          <th scope="col">Author</th>
+          <th scope="col">Page Count</th>
+          <th scope="col">Published at</th>
+          <th scope="col">Publisher</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% let i = 1; %>
+        <% books.forEach((book) => { %>  
+          <tr>
+            <th scope="row"><%= i; %></th>
+            <td>
+              <img src="<%= book.cover.split('lic')[1] %>" class="img-thumbnail book-cover">
+            </td>
+            <td><strong><%= book.title; %></strong></td>
+            <td><%= book.author.name; %></td>
+            <td><%= book.pageCount; %></td>
+            <td><%= book.publishedAt.toISOString().split('T')[0]; %></td>
+            <td><%= book.publisher.name; %></td>
+            <td>
+              <div class="container-fluid d-flex justify-content-start">
+                <div class="row">
+                  <div class="col">
+                    <a href="/admin/book/<%= book.id %>" class="btn btn-dark"><i class="fas fa-info"></i></a>
+                  </div>
+                  <div class="col">
+                    <a href="/admin/book/<%= book.id %>/edit" class="btn btn-secondary"><i class="far fa-edit"></i></a>
+                  </div>
+                  <div class="col">
+                    <form method="POST" action="/admin/book/<%= book.id %>?_method=DELETE">
+                      <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </td>
+          </tr>
+        <% i++; %> 
+        <% }); %> 
+      </tbody>
+    </table>
+  </div>
 
 </div>
 

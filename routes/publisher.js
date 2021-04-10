@@ -1,5 +1,6 @@
 const express = require('express');
 const Publisher = require('../models/Publisher');
+const User = require('../models/User');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
@@ -10,17 +11,20 @@ router.get('/', async (req, res) => {
         sort: { name: 1 }
     }
     const publishers = await Publisher.paginate({}, options);
-    res.render('admin/publisher/index', {publishers: publishers.docs, config: publishers});
+    const user = await User.findById(req.user._id).populate('role').exec();
+    res.render('admin/publisher/index', {user, publishers: publishers.docs, config: publishers});
 });
 
-router.get('/create', (req, res) => {
-    res.render('admin/publisher/create');
+router.get('/create', async (req, res) => {
+    const user = await User.findById(req.user._id).populate('role').exec();
+    res.render('admin/publisher/create', {user});
 });
 
 router.get('/:id', async (req, res) => {
     try {
         const publisher = await Publisher.findById(req.params.id);
-        res.render('admin/publisher/detail', {publisher: publisher});
+        const user = await User.findById(req.user._id).populate('role').exec();
+        res.render('admin/publisher/detail', {user, publisher});
     }
     catch (err) {
         console.log(err.message);
@@ -50,7 +54,8 @@ router.post('/', async (req, res) => {
 router.get('/:id/edit', async (req, res) => {
     try {
         const publisher = await Publisher.findById(req.params.id);
-        res.render('admin/publisher/edit', {publisher: publisher});
+        const user = await User.findById(req.user._id).populate('role').exec();
+        res.render('admin/publisher/edit', {user, publisher});
     }
     catch (err) {
         console.log(err.message);

@@ -1,14 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const Menu = require('../models/Menu');
+const User = require('../models/User');
 
 router.get('/', async (req, res) => {
     const menus = await Menu.find();
-    res.render('admin/menu/index', {menus});
+    const user = await User.findById(req.user._id).populate('role').exec();
+    res.render('admin/menu/index', {user, menus});
 });
 
-router.get('/create', (req, res) => {
-    res.render('admin/menu/create');
+router.get('/create', async (req, res) => {
+    const user = await User.findById(req.user._id).populate('role').exec();
+    res.render('admin/menu/create', {user});
 });
 
 router.post('/', async (req, res) => {
@@ -32,7 +35,8 @@ router.post('/', async (req, res) => {
 router.get('/:id/edit', async (req, res) => {
     try {
         const menu = await Menu.findById(req.params.id);
-        res.render('admin/menu/edit', {menu});
+        const user = await User.findById(req.user._id).populate('role').exec();
+        res.render('admin/menu/edit', {user, menu});
     }
     catch(err) {
         console.log(err);

@@ -5,6 +5,7 @@ const Author = require('../models/Author');
 const Publisher = require('../models/Publisher');
 const uploadConfig = require('../config/upload');
 const Book = require('../models/Book');
+const User = require('../models/User');
 
 const filePath = 'uploads/bookCovers';
 const upload = uploadConfig(filePath)
@@ -15,6 +16,10 @@ router.get('/', async (req, res) => {
 
     if (req.query.title != null && req.query.title != '') {
         query = query.regex('title', new RegExp(req.query.title, 'i'));
+
+    }
+    if (req.query.author != null && req.query.author != '') {
+        query = query.regex('author', new RegExp(req.query.author, 'i'));
     }
 
     if (req.query.publishedBefore != null && req.query.publishedBefore != '') {
@@ -26,9 +31,12 @@ router.get('/', async (req, res) => {
     }
     
     try {
-        const books = await query.exec();
+        const books = await query.populate('author').populate('publisher').exec();
+        const user = await User.findById(req.user._id).populate('role').exec();
+        console.log(user);
         res.render('admin/book/index', {
-            books: books,
+            books,
+            user,
             searchOptions: req.query
         });
     }
@@ -49,14 +57,14 @@ router.get('/', async (req, res) => {
     // console.log(books);
     // res.render('admin/book/index', {books: books.docs, config: books});
 
-
 });
 
 router.get('/create', async (req, res) => {
     try {
         const authors = await Author.find();
         const publishers = await Publisher.find();
-        res.render('admin/book/create', {authors: authors, publishers: publishers});
+        const user = await User.findById(req.user._id).populate('role').exec();
+        res.render('admin/book/create', {authors, publishers, user});
     }
     catch (err) {
         console.log(err.message);
@@ -67,7 +75,8 @@ router.get('/create', async (req, res) => {
 router.get('/:id', async (req, res) => {
     try {
         const book = await Book.findById(req.params.id).populate('author').populate('publisher').exec();
-        res.render('admin/book/detail', {book: book});
+        const user = await User.findById(req.user._id).populate('role').exec();
+        res.render('admin/book/detail', {book, user});
     }
     catch (err) {
         console.log(err.message);
@@ -103,11 +112,12 @@ router.get('/:id/edit', async (req, res) => {
         const book = await Book.findById(req.params.id);
         const authors = await Author.find();
         const publishers = await Publisher.find();
-
+        const user = await User.findById(req.user._id).populate('role').exec();
         res.render('admin/book/edit', {
-            book: book,
-            authors: authors,
-            publishers: publishers    
+            user,
+            book,
+            authors,
+            publishers  
         });
     }
     catch(err) {

@@ -11,15 +11,16 @@ router.get('/', async (req, res) => {
         populate: 'role'
     }
     const users = await User.paginate({}, options);
-    res.render('admin/user/index', {users: users.docs, config: users});
+    const user = await User.findById(req.user._id).populate('role').exec();
+    res.render('admin/user/index', {user, users: users.docs, config: users});
 });
 
 router.get('/:id/edit', async (req, res) => {
     try {
-        const user = await User.findById(req.params.id);
+        const wantedUser = await User.findById(req.params.id);
         const roles = await Role.find();
-
-        res.render('admin/user/edit', {user, roles});
+        const user = await User.findById(req.user._id).populate('role').exec();
+        res.render('admin/user/edit', {user, wantedUser, roles});
     }
     catch(err) {
         console.log(err);

@@ -1,4 +1,5 @@
 const express = require('express');
+const User = require('../models/User');
 const Author = require('../models/Author');
 const router = express.Router();
 
@@ -10,17 +11,20 @@ router.get('/', async (req, res) => {
         sort: {name: 1}
     }
     const authors = await Author.paginate({}, options); 
-    res.render('admin/author/index', {authors: authors.docs, config: authors});
+    const user = await User.findById(req.user._id).populate('role').exec();
+    res.render('admin/author/index', {user, authors: authors.docs, config: authors});
 });
 
-router.get('/create', (req, res) => {
-    res.render('admin/author/create');
+router.get('/create', async (req, res) => {
+    const user = await User.findById(req.user._id).populate('role').exec();
+    res.render('admin/author/create', {user});
 });
 
 router.get('/:id', async (req, res) => {
     try {
         const author = await Author.findById(req.params.id);
-        res.render('admin/author/detail', {author: author});
+        const user = await User.findById(req.user._id).populate('role').exec();
+        res.render('admin/author/detail', {user, author});
     }
     catch (err) {
         console.log(err.message);
@@ -49,7 +53,8 @@ router.post('/', async (req, res) => {
 router.get('/:id/edit', async (req, res) => {
     try {
         const author = await Author.findById(req.params.id);
-        res.render('admin/author/edit', {author: author});
+        const user = await User.findById(req.user._id).populate('role').exec();
+        res.render('admin/author/edit', {user, author});
     }
     catch(err) {
         res.redirect('/admin/author');

@@ -1,14 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const Role = require('../models/Role');
+const User = require('../models/User');
 
 router.get('/', async (req, res) => {
     const roles = await Role.find();
-    res.render('admin/role/index', {roles: roles});
+    const user = await User.findById(req.user._id).populate('role').exec();
+    res.render('admin/role/index', {user, roles});
 });
 
-router.get('/create', (req, res) => {
-    res.render('admin/role/create');
+router.get('/create', async (req, res) => {
+    const user = await User.findById(req.user._id).populate('role').exec();
+    res.render('admin/role/create', {user});
 });
 
 router.post('/', async (req, res) => {
@@ -36,7 +39,8 @@ router.post('/', async (req, res) => {
 router.get('/:id/edit', async (req, res) => {
     try {
         const role = await Role.findById(req.params.id);
-        res.render('admin/role/edit', {role: role});
+        const user = await User.findById(req.user._id).populate('role').exec();
+        res.render('admin/role/edit', {user, role});
     }
     catch(err) {
         console.log(err);

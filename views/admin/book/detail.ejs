@@ -20,18 +20,20 @@
           <p><strong>Publisher: </strong><%= book.publisher.name %></p>
           <p><strong>Summary: </strong><%= book.summary %></p>
         </div>
-        <div class="container d-flex justify-content-start">
-          <div class="row">
-            <div class="col">
-              <a href="/admin/book/<%= book.id %>/edit" class="btn btn-dark">Edit</a>
-            </div>
-            <div class="col">
-              <form method="POST" action="/admin/book/<%= book.id %>?_method=DELETE">
-                <button class="btn btn-danger" type="submit">Remove</button>
-              </form>
+        <% if (user.role.name == "Admin") { %>
+          <div class="container d-flex justify-content-start">
+            <div class="row">
+              <div class="col">
+                <a href="/admin/book/<%= book.id %>/edit" class="btn btn-dark">Edit</a>
+              </div>
+              <div class="col">
+                <form method="POST" action="/admin/book/<%= book.id %>?_method=DELETE">
+                  <button class="btn btn-danger" type="submit">Remove</button>
+                </form>
+              </div>
             </div>
           </div>
-        </div>
+        <% } %> 
       </div>
     </div>
   </div>
